@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Tabs, Tab, InteractiveForceGraph, ForceGraphNode, ForceGraphArrowLink } from 'react-vis-force';
 import { withRouter } from 'react-router';
 import { Input, Modal, Button, Icon } from 'react-materialize';
+import { connect } from 'react-redux'
+import { compose } from 'ramda';
 import uuid from 'uuid';
 
 const whichColor = ({ hasSource, hasTarget }) => 
@@ -40,7 +42,6 @@ class Place extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      store: props.store,
       pathname: props.location.pathname,
       currentLabel: 'text',
       currentType: 'text',
@@ -59,11 +60,10 @@ class Place extends React.Component {
 
 
   render() {
-    const store = this.state.store;
     const pathname = this.state.pathname;
 
     const [, areaId, placeId] = pathname.match(/\/areas\/(.*)\/places\/(.*)/);
-    const placeData = store.areas[areaId].places[placeId];
+    const placeData = this.props.areas[areaId].places[placeId];
 
     genColors(placeData.modules, placeData.moduleLinks);
 
@@ -109,4 +109,13 @@ class Place extends React.Component {
   }
 }
 
-export default withRouter(Place);
+const mapStateToProps = state => {
+  return {
+    areas: state.areas,
+  }
+}
+
+export default compose(
+  connect(mapStateToProps, null, null, {pure: false}),
+  withRouter,
+)(Place)

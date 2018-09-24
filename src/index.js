@@ -28,7 +28,6 @@ const store = createStore(
 );
 epicMiddleware.run(rootEpic);
 
-
 ReactDOM.render(
   <Provider store={store}>
     <Router>

@@ -3,39 +3,31 @@ import {
   Navbar,
   NavItem, 
   Breadcrumb,
-  MenuItem,
 } from 'react-materialize';
+import { connect } from 'react-redux'
+import { compose } from 'ramda';
 
+import SyllaboBreadCrumb from './components/breadcrumb';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
-import Store from './myFakeStore';
+// import Store from './myFakeStore';
 
-import World from './world';
-import Area from './area';
-import Place from './place';
+import World from './components/world';
+import Area from './components/area';
+import Place from './components/place';
 
 import './App.css';
 
 const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log(props);
+  }
   render() {
     const { pathname } = this.props.location;
-    const breadCrumbContent = () => {
-      const bcc = [
-        (<MenuItem><Link to={'/world'}>Monde</Link></MenuItem>),
-      ];
-      const areaUrl = pathname.match(/areas\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/);
-      const placeUrl = pathname.match(/areas\/(.*)\/places\/(.*)/);
-      if (areaUrl) {
-        bcc.push(<MenuItem><Link to={`/areas/${areaUrl[1]}`}>{Store.areas[areaUrl[1]].title}</Link></MenuItem>);
-      }
-      if (placeUrl) {
-        bcc.push(<MenuItem><Link to={`/areas/${placeUrl[1]}/places/${placeUrl[2]}`}>{Store.areas[placeUrl[1]].places[placeUrl[2]].name}</Link></MenuItem>);
-      }
-      return bcc;
-    };
 
     return (
       <div>
@@ -43,33 +35,33 @@ class App extends Component {
           <NavItem onClick={() => console.log('Back to main menu')}>Se déconnecter</NavItem>
         </Navbar>
         <Breadcrumb className='admin-breadcrumb'>
-          {breadCrumbContent()}
+          {SyllaboBreadCrumb(pathname, this.props.areas)}
         </Breadcrumb>
         <Route
           exact={true}
           path={'/'}
           render={() => {
-            return (<World store={Store}/>);
+            return (<World/>);
           }}
         />
         <Route
           exact={true}
           path={'/world'}
           render={() => {
-            return (<World store={Store}/>);
+            return (<World/>);
           }}
         />
         <Route
           exact={true}
           path={'/areas/:areaId'}
           render={() => {
-            return (<Area store={Store}/>);
+            return (<Area/>);
           }}
         />
         <Route
           path={'/areas/:areaId/places/:placeId'}
           render={() => {
-            return (<Place store={Store}/>);
+            return (<Place/>);
           }}
         />
       </div>
@@ -77,4 +69,13 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  return {
+    areas: state.areas,
+  }
+};
+
+export default compose(
+  connect(mapStateToProps, null, null, { pure: false }),
+  withRouter,
+ )(App);

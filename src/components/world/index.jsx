@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Row, Card, Icon } from 'react-materialize';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { compose } from 'ramda';
 
 const generatePlaces = (areas) => Object
   .entries(areas)
@@ -17,7 +19,7 @@ const generatePlaces = (areas) => Object
   )
 );
 
-const Place = ({store}) => {
+const Place = ({areas}) => {
   return (
     <Row>
       <Col m={2} s={12}>
@@ -26,9 +28,15 @@ const Place = ({store}) => {
         >
         </Card>
       </Col>
-      {[...generatePlaces(store.areas)]}
+      {[...generatePlaces(areas)]}
     </Row>
   );
 }
 
-export default Place;
+const mapStateToProps = state => {
+  return {
+    areas: state.areas,
+  }
+}
+
+export default connect(mapStateToProps, null, null, { pure: false })(Place);

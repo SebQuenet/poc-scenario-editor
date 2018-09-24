@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Tabs, Tab, Icon, Row, Table, Input, Button } from 'react-materialize';
 import { InteractiveForceGraph, ForceGraphNode, ForceGraphArrowLink } from 'react-vis-force';
+import { connect } from 'react-redux'
+import { compose } from 'ramda';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import moment from 'moment';
 
-const orderBy = 'name'
+const orderBy = 'name';
 
 const renderPlace = (areaId, placeId, placeData) => (
   <tr key={placeId}>
@@ -66,9 +68,9 @@ const renderGraphTab = (areaData) => [(
   </InteractiveForceGraph>
 )];
 
-const Area = ({ store, location: {pathname} }) => {
+const Area = ({ areas, location: {pathname} }) => {
   const areaId = pathname.match(/\/areas\/(.*)/)[1];
-  const areaData = store.areas[areaId];
+  const areaData = areas[areaId];
   
   return areaData ? (
     <Row>
@@ -89,4 +91,13 @@ const Area = ({ store, location: {pathname} }) => {
   ) : (<div></div>) ;
 }
 
-export default withRouter(Area);
+const mapStateToProps = state => {
+  return {
+    areas: state.areas,
+  }
+};
+
+export default compose(
+  connect(mapStateToProps, null, null, { pure: false }),
+  withRouter,
+ )(Area);
