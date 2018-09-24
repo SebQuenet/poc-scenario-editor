@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { InteractiveForceGraph, ForceGraphNode, ForceGraphLink } from 'react-vis-force';
+import { Tabs, Tab, InteractiveForceGraph, ForceGraphNode, ForceGraphArrowLink } from 'react-vis-force';
 import { withRouter } from 'react-router';
 import { Input, Modal, Button, Icon } from 'react-materialize';
 import uuid from 'uuid';
@@ -15,7 +15,7 @@ const renderGraph = (nodes, links) => nodes !== undefined && links !== undefined
       console.log(nodeId, node);
       return (<ForceGraphNode node={{ id: nodeId, label: node.label }} fill={whichColor(node)}></ForceGraphNode>)
     }) ,
-    links.map(link => <ForceGraphLink link={{ source: link.source, target: link.target }}></ForceGraphLink>),
+    links.map(link => <ForceGraphArrowLink link={{ source: link.source, target: link.target }}></ForceGraphArrowLink>),
   ] :
   <div></div>;
 
@@ -29,6 +29,7 @@ const genColors = (nodes, links) => {
     const { source, target } = link;
     nodes[source].hasSource=true;
     nodes[source].nbSources ? nodes[source].nbSources += 1 : 1;
+    console.log(target);
     nodes[target].hasTarget=true;
     nodes[target].nbTargets ? nodes[target].nbTargets += 1 : 1;
   });
