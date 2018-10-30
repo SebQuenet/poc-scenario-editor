@@ -7,12 +7,12 @@ import {
 import { connect } from 'react-redux'
 import { compose } from 'ramda';
 
-import SyllaboBreadCrumb from './components/breadcrumb';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import routes from './routes';
 
-// import Store from './myFakeStore';
 
+import SyllaboBreadCrumb from './components/breadcrumb';
 import World from './components/world';
 import Area from './components/area';
 import Place from './components/place';
@@ -22,10 +22,6 @@ import './App.css';
 const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    console.log(props);
-  }
   render() {
     const { pathname } = this.props.location;
 

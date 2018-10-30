@@ -30,10 +30,12 @@ const genColors = (nodes, links) => {
   links.forEach((link) => {
     const { source, target } = link;
     nodes[source].hasSource=true;
+    /* eslint-disable */
     nodes[source].nbSources ? nodes[source].nbSources += 1 : 1;
     console.log(target);
     nodes[target].hasTarget=true;
     nodes[target].nbTargets ? nodes[target].nbTargets += 1 : 1;
+    /* eslint-enable */
   });
 }
 

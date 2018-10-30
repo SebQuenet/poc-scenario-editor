@@ -1,38 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
-import { Provider } from "react-redux";
-import { composeWithDevTools } from 'redux-devtools-extension';
-
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import * as serviceWorker from './serviceWorker';
+import { rootReducer } from './features';
 
-import { rootReducer, rootEpic } from './reducers'
-
-const epicMiddleware = createEpicMiddleware();
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const composeEnhancers = composeWithDevTools({});
 
-const middlewares = {
-  epicMiddleware,
-};
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
-  composeEnhancers(
-    applyMiddleware(...middlewares),
-  )
+  applyMiddleware(sagaMiddleware),
 );
-epicMiddleware.run(rootEpic);
+
+// ReactDOM.render(<App />, document.getElementById('root'));
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
+  <Router>
+    <App /></Router>
   </Provider>, document.getElementById('root'));
-
-registerServiceWorker();
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.unregister();
