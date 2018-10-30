@@ -4,56 +4,29 @@
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  height: 40vmin;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
+.App-link {
+  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.admin-title {
-  color: rgb(222, 235, 255);
-  background-color: rgb(7, 71, 166);
-  padding-left: 2rem;
-  // Need stronger selector to override default width from materialize
-  &:global.col.m1.l1 {
-    width: 64px;
+  from {
+    transform: rotate(0deg);
   }
-}
-.admin-breadcrumb {
-  color: rgb(222, 235, 255);
-  background-color: rgb(73, 118, 184);
-  padding-left: 1rem;
-  // Need stronger selector to override default width from materialize
-  &:global.col.m1.l1 {
-    width: 64px;
+  to {
+    transform: rotate(360deg);
   }
-}
-
-.tabs > .tab > a {
-  color: rgb(222, 235, 255);
-}
-
-.tabs > .tab > a.active {
-  color: rgb(222, 235, 255);
-}
-
-.tabs > .tab > a:hover {
-  color: rgb(155, 171, 195);
 }
