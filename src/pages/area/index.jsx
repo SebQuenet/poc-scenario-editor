@@ -97,7 +97,9 @@ const mapStateToProps = state => {
   }
 };
 
+const withConnect = connect(mapStateToProps, null, null, {pure: false});
+
 export default compose(
-  connect(mapStateToProps, null, null, { pure: false }),
+  withConnect,
   withRouter,
  )(Area);
