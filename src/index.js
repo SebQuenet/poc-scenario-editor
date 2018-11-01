@@ -4,10 +4,11 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+
 import './index.css';
-import App from './App';
+import App from 'App';
 import * as serviceWorker from './serviceWorker';
-import { rootReducer } from './features';
+import { rootReducer, rootSaga } from './features';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -17,10 +18,10 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(sagaMiddleware),
+    composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
 
-// ReactDOM.render(<App />, document.getElementById('root'));
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
