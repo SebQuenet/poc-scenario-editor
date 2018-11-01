@@ -9,19 +9,27 @@ import { compose } from 'ramda';
 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import routes from './routes';
+import routes from 'routes';
 
 
-import SyllaboBreadCrumb from './components/breadcrumb';
-import World from './components/world';
-import Area from './components/area';
-import Place from './components/place';
+import BreadcrumbContent from 'components/BreadcrumbContent';
+import World from 'components/world';
+import Area from 'components/area';
+import Place from 'components/place';
+
+import * as actions from './features/areas/actions';
 
 import './App.css';
 
 const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
 
 class App extends Component {
+
+  componentDidMount() {
+    console.log('HERe !');
+    this.props.fetchAreas();
+  }
+
   render() {
     const { pathname } = this.props.location;
 
@@ -31,7 +39,7 @@ class App extends Component {
           <NavItem onClick={() => console.log('Back to main menu')}>Se déconnecter</NavItem>
         </Navbar>
         <Breadcrumb className='admin-breadcrumb'>
-          {SyllaboBreadCrumb(pathname, this.props.areas)}
+          {BreadcrumbContent(pathname, this.props.areas)}
         </Breadcrumb>
         <Route
           exact={true}
@@ -72,6 +80,6 @@ const mapStateToProps = state => {
 };
 
 export default compose(
-  connect(mapStateToProps, null, null, { pure: false }),
+  connect(mapStateToProps, actions , null, { pure: false }),
   withRouter,
  )(App);

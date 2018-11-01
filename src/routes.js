@@ -1,7 +1,7 @@
-import App from './App';
-import World from './components/world';
-import Area from './components/area';
-import Place from './components/place';
+import App from 'App';
+import World from 'components/world';
+import Area from 'components/area';
+import Place from 'components/place';
 
 const routes = [
   { component: App,

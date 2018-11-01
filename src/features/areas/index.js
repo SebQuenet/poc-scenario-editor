@@ -1,4 +1,5 @@
 import store from '../../store';
+import { watchAreas as areaSagas } from './operations';
 
 export default function areas(state = store.areas , action) {
   switch (action.type) {
@@ -6,3 +7,5 @@ export default function areas(state = store.areas , action) {
       return state;
   }
 };
+
+export { areaSagas };
