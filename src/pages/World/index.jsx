@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { Col, Row, Card, Icon } from 'react-materialize';
+import React from 'react';
+import { Col, Row, Card } from 'react-materialize';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { compose } from 'ramda';
 
 const generatePlaces = (areas) => Object
   .entries(areas)
