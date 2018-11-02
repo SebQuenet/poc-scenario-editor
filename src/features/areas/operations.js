@@ -12,6 +12,15 @@ export function* fetchAreasSaga() {
   }
 }
 
+export function* addAreasSaga(areaData) {
+  try {
+    const response = yield axios.post('http://127.0.0.1:3142/areas/create', areaData);
+    yield put(actions.addAreaSuccess(response.data));
+  } catch(error) {
+    yield put(actions.addAreaFailure(error));
+  }
+}
 export function* watchAreas() {
   yield takeEvery(types.FETCH_AREAS, fetchAreasSaga);
+  yield takeEvery(types.ADD_AREA, fetchAreasSaga);
 }

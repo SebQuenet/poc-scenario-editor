@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Tabs, Tab, InteractiveForceGraph, ForceGraphNode, ForceGraphArrowLink } from 'react-vis-force';
+import React from 'react';
+import { InteractiveForceGraph, ForceGraphNode, ForceGraphArrowLink } from 'react-vis-force';
 import { withRouter } from 'react-router';
 import { Input, Modal, Button, Icon } from 'react-materialize';
 import { connect } from 'react-redux'

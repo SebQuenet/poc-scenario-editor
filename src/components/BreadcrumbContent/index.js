@@ -6,7 +6,7 @@ import {
   MenuItem,
 } from 'react-materialize';
 
-const SyllaboBreadCrumb = (pathname, areas) => {
+const BreadcrumbContent = (pathname, areas) => {
   const bcc = [
     (<MenuItem key={'world'}><Link to={'/world'}>Monde</Link></MenuItem>),
   ];
@@ -21,4 +21,4 @@ const SyllaboBreadCrumb = (pathname, areas) => {
   return bcc;
 };
 
-export default SyllaboBreadCrumb;
+export default BreadcrumbContent;

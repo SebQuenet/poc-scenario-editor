@@ -7,15 +7,10 @@ import {
 import { connect } from 'react-redux'
 import { compose } from 'ramda';
 
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import routes from 'routes';
-
+import renderRoutes from './routes';
 
 import BreadcrumbContent from 'components/BreadcrumbContent';
-import World from 'components/world';
-import Area from 'components/area';
-import Place from 'components/place';
 
 import * as actions from './features/areas/actions';
 
@@ -26,7 +21,6 @@ const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
 class App extends Component {
 
   componentDidMount() {
-    console.log('HERe !');
     this.props.fetchAreas();
   }
 
@@ -41,33 +35,7 @@ class App extends Component {
         <Breadcrumb className='admin-breadcrumb'>
           {BreadcrumbContent(pathname, this.props.areas)}
         </Breadcrumb>
-        <Route
-          exact={true}
-          path={'/'}
-          render={() => {
-            return (<World/>);
-          }}
-        />
-        <Route
-          exact={true}
-          path={'/world'}
-          render={() => {
-            return (<World/>);
-          }}
-        />
-        <Route
-          exact={true}
-          path={'/areas/:areaId'}
-          render={() => {
-            return (<Area/>);
-          }}
-        />
-        <Route
-          path={'/areas/:areaId/places/:placeId'}
-          render={() => {
-            return (<Place/>);
-          }}
-        />
+        {renderRoutes()}
       </div>
     );
   }
