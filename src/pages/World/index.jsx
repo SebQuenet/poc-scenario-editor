@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 const generatePlaces = (areas) => Object
   .entries(areas)
   .map(([placeKey, place]) => (
-    <Col m={2} s={12}>
+    <Col m={2} s={12} key={placeKey}>
       <Card
         key={placeKey}
         title={place.title}

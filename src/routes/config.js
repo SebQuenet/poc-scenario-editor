@@ -5,6 +5,6 @@ import Place from 'pages/Place';
 export default [
   { path: '/', exact: true, component: World },
   { path: '/world', exact: true, component: World },
-  { path: '/areas/:areaId', component: Area },
+  { path: '/areas/:areaId', exact: true, component: Area },
   { path: '/areas/:areaId/places/:placeId', exact: true, component: Place },
 ];
