@@ -12,11 +12,9 @@ import renderRoutes from './routes';
 
 import BreadcrumbContent from 'components/BreadcrumbContent';
 
-import * as actions from './features/areas/actions';
+import { actions } from './features/areas';
 
 import './App.css';
-
-const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
 
 class App extends Component {
 
@@ -33,7 +31,7 @@ class App extends Component {
           <NavItem onClick={() => console.log('Back to main menu')}>Se déconnecter</NavItem>
         </Navbar>
         <Breadcrumb className='admin-breadcrumb'>
-          {BreadcrumbContent(pathname, this.props.areas)}
+          <BreadcrumbContent pathname={pathname} areas={this.props.areas} />
         </Breadcrumb>
         {renderRoutes()}
       </div>

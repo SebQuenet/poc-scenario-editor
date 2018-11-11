@@ -14,8 +14,9 @@ export const fetchAreasFailure = (error) => ({
   payload: error,
 });
 
-export const addArea = () => ({
+export const addArea = (areaData) => ({
   type: actions.ADD_AREA,
+  payload: areaData,
 });
 
 export const addAreaSuccess = (data) => ({

@@ -3,16 +3,19 @@ import * as actions from './actions';
 import * as types from './types';
 import axios from 'axios';
 
-export function* fetchAreasSaga() {
+export function* fetchNPCsSaga(fetchNPCsAction) {
+  console.log(fetchNPCsAction);
   try {
-    const response = yield axios.get('http://127.0.0.1:3142/areas');
-    yield put(actions.fetchAreasSuccess(response.data));
+    const response = yield axios.get('http://127.0.0.1:3142/npcs');
+    yield put(actions.fetchNPCsSuccess(response.data));
   } catch(error) {
-    yield put(actions.fetchAreasFailure(error));
+    yield put(actions.fetchNPCsFailure(error));
   }
 }
 
-export function* addAreaSaga(areaDataAction) {
+export function* addNPCSaga(npcDataAction) {
+  console.log(npcDataAction);
+  /*
   try {
     const areaFormData = new FormData();
 
@@ -28,16 +31,16 @@ export function* addAreaSaga(areaDataAction) {
         }
       }
     });
-    yield put(actions.addAreaSuccess({
+    yield put(actions.addNPCSuccess({
       requestData: areaDataAction.payload,
       responseData: response.data,
     }));
   } catch(error) {
     yield put(actions.addAreaFailure(error));
-  }
+  }*/
 }
 
-export function* watchAreas() {
-  yield takeEvery(types.FETCH_AREAS, fetchAreasSaga);
-  yield takeEvery(types.ADD_AREA, addAreaSaga);
+export function* watchNPCs() {
+  yield takeEvery(types.FETCH_NPCS, fetchNPCsSaga);
+  yield takeEvery(types.ADD_NPC, addNPCSaga);
 }

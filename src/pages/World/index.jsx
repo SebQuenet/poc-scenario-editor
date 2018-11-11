@@ -9,10 +9,11 @@ const generatePlaces = (areas) => Object
     <Col m={2} s={12} key={placeKey}>
       <Card
         key={placeKey}
-        title={place.title}
+        title={place.name}
         actions={[<Link to={`/areas/${placeKey}`}>Modifier</Link>]}
       >
-        {place.description}
+        <em>{place.date}</em>
+        <p>{place.description}</p>
       </Card>
     </Col>
   )
@@ -23,12 +24,22 @@ const Place = ({areas}) => {
     <Row>
       <Col m={2} s={12}>
         <Card
-          actions={'Ajouter une région'}
+          actions={[<Link to={`/areas/create`}>Ajouter une région</Link>]}
         >
         </Card>
       </Col>
       {[...generatePlaces(areas)]}
     </Row>
+  );
+}
+
+const World = ({areas}) => {
+  return (
+    <>
+      <h3>Régions</h3>
+      <Place areas={areas} />
+      <h3>Accomplissements</h3>
+    </>
   );
 }
 
@@ -38,4 +49,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null, null, { pure: false })(Place);
+export default connect(mapStateToProps, null, null, { pure: false })(World);
